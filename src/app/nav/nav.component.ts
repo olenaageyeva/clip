@@ -7,12 +7,14 @@ import { ModalService } from '../services/modal.service';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  constructor(public modal: ModalService) {}
+  constructor(public modal: ModalService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  openModal($event: Event) {
+  openModal($event: Event, id: string) {
     $event.preventDefault();
-    this.modal.toggleModal('auth');
+    this.modal.toggleModal(id, { title: id === 'auth' ? '' : ' Nav Title', actionButtonTitle: id === 'auth' ? '' : 'Boom!', message: id==='auth' ?'' : "Here is a custom message"});
   }
+
+
 }
