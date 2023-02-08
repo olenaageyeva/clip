@@ -7,7 +7,7 @@ import { ModalService } from 'src/app/services/modal.service';
   styleUrls: ['./auth-modal.component.scss'],
 })
 export class AuthModalComponent implements OnInit, OnDestroy {
-  constructor(public modal: ModalService) {}
+  constructor(public modal: ModalService) { }
 
   ngOnInit(): void {
     this.modal.register('auth');
@@ -15,5 +15,10 @@ export class AuthModalComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.modal.unregister('auth');
+  }
+
+  openSampleModal($event: Event, id: string) {
+    $event.preventDefault();
+    this.modal.toggleModal(id, {});
   }
 }

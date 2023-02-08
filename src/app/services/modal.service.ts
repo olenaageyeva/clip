@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
 
+interface IOptions {
+  title?: string;
+  actionButtonTitle?: string;
+  message?: string;
+}
+
 interface IModal {
   id: string;
   visible: boolean;
+  options: IOptions;
 }
 
 @Injectable({
@@ -11,10 +18,10 @@ interface IModal {
 export class ModalService {
   private modals: IModal[] = [];
 
-  constructor() {}
+  constructor() { }
 
   register(id: string) {
-    this.modals.push({ id, visible: false });
+    this.modals.push({ id, visible: false, options: {} });
   }
 
   unregister(id: string) {
@@ -29,8 +36,14 @@ export class ModalService {
     return !!this.findById(id)?.visible;
   }
 
-  toggleModal(id: string): void {
+  modalOptions(id: string): IOptions {
+    return this.findById(id)?.options || {};
+  }
+
+  toggleModal(id: string, options: IOptions): void {
     const modal = this.findById(id);
     if (modal) modal.visible = !modal.visible;
+    if (modal?.visible) modal.options = options;
+
   }
 }
